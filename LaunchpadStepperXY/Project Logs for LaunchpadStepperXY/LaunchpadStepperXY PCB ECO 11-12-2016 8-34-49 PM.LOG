@@ -1,0 +1,37 @@
+Added Component: Designator=Con1(SIP4)
+Added Component: Designator=Con2(SIP4)
+Added Component: Designator=JP?(SIP2)
+Added Pin To Net: NetName=PF0 Pin=J1-14
+Added Pin To Net: NetName=GND Pin=JP?-1
+Added Pin To Net: NetName=NetCon1_1 Pin=Con1-1
+Added Pin To Net: NetName=NetCon1_1 Pin=ST1-14
+Added Net: Name=NetCon1_1
+Added Pin To Net: NetName=NetCon1_2 Pin=Con1-2
+Added Pin To Net: NetName=NetCon1_2 Pin=ST1-13
+Added Net: Name=NetCon1_2
+Added Pin To Net: NetName=NetCon1_3 Pin=Con1-3
+Added Pin To Net: NetName=NetCon1_3 Pin=ST1-12
+Added Net: Name=NetCon1_3
+Added Pin To Net: NetName=NetCon1_4 Pin=Con1-4
+Added Pin To Net: NetName=NetCon1_4 Pin=ST1-11
+Added Net: Name=NetCon1_4
+Added Pin To Net: NetName=NetCon2_1 Pin=Con2-1
+Added Pin To Net: NetName=NetCon2_1 Pin=ST2-14
+Added Net: Name=NetCon2_1
+Added Pin To Net: NetName=NetCon2_2 Pin=Con2-2
+Added Pin To Net: NetName=NetCon2_2 Pin=ST2-13
+Added Net: Name=NetCon2_2
+Added Pin To Net: NetName=NetCon2_3 Pin=Con2-3
+Added Pin To Net: NetName=NetCon2_3 Pin=ST2-12
+Added Net: Name=NetCon2_3
+Added Pin To Net: NetName=NetCon2_4 Pin=Con2-4
+Added Pin To Net: NetName=NetCon2_4 Pin=ST2-11
+Added Net: Name=NetCon2_4
+Added Pin To Net: NetName=NetJP?_2 Pin=JP?-2
+Added Pin To Net: NetName=NetJP?_2 Pin=ST1-16
+Added Pin To Net: NetName=NetJP?_2 Pin=ST2-16
+Added Net: Name=NetJP?_2
+Added Member To Class: ClassName=LaunchpadStepperXY Member=Component Con1 CON4
+Added Member To Class: ClassName=LaunchpadStepperXY Member=Component Con2 CON4
+Added Member To Class: ClassName=LaunchpadStepperXY Member=Component JP? CON2
+Added Room: Name=LaunchpadStepperXY

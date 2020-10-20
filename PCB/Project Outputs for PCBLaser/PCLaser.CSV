@@ -1,0 +1,15 @@
+"Bill of Material for "
+"On 4/9/2017 at 11:35:38 PM"
+
+"Comment","Pattern","Quantity","Components"
+
+"","0603","1","R11","RES, 47K, 1%, 0.1 W, 0603"
+"0.1uF","0603c","7","C1, C2, C3, C4, C7, C9, C11","Capacitor"
+"046288020000846+","FPC20-0.5mm","1","J2","Connector, 20 Pos. 0.5mm R/A SMT Bottom Contact One-Touch Lock, SMT"
+"10uF ceramic","0805C","2","C5, C12","Capacitor"
+"45 pin 0.5mm","FPC-45x0.5mm","1","J1","Connector"
+"CRCW060310K0JNEA","0603","10","R1, R2, R3, R4, R5, R6, R7, R8, R9, R10","RES, 10 k, 5%, 0.1 W, 0603"
+"CRCW06032K20JNEA","0603","2","R13, R16","RES, 2.2 k, 5%, 0.1 W, 0603"
+"CRCW060362R0JNEA","0603","1","R12","RES, 62, 5%, 0.1 W, 0603"
+"LM324KPW","PW0014A_N","2","U1, U2","Quad Low Power Op Amp with 2KV ESD protection, PW0014A"
+"TC4425AVOA","SOIC-OA8_N","1","U3","3A Dual High-Speed Power MOSFET Drivers, Complimentary, Extended Temperature"

@@ -1,0 +1,17 @@
+*************************************************************
+FileName = LaserCalibrationGrade.GBR
+AutoAperture = True
+*************************************************************
+Generating : Top Layer
+      File : LaserCalibrationGrade.GTL
+
+    Adding Layer      : Top Layer
+
+    Adding Layer      : Multi-Layer
+
+
+Used DCodes :
+    D10
+    D11
+*************************************************************
+

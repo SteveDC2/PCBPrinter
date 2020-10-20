@@ -1,0 +1,9 @@
+Added Pin To Net: NetName=PF4 Pin=ST1-1
+Added Pin To Net: NetName=PC5 Pin=ST1-5
+Added Pin To Net: NetName=PC6 Pin=ST1-7
+Added Pin To Net: NetName=PD6 Pin=ST1-8
+Added Pin To Net: NetName=PF4 Pin=ST2-1
+Added Pin To Net: NetName=PC5 Pin=ST2-5
+Added Pin To Net: NetName=PC7 Pin=ST2-7
+Added Pin To Net: NetName=PD7 Pin=ST2-8
+Added Room: Name=LaunchpadStepperXY

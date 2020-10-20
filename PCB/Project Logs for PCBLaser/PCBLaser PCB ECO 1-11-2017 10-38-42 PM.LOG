@@ -1,0 +1,7 @@
+Removed Pin From Net: NetName=GND Pin=C6-1
+Removed Pin From Net: NetName=V5V Pin=C6-2
+Removed Pin From Net: NetName=GND Pin=C8-1
+Removed Pin From Net: NetName=V5V Pin=C8-2
+Removed Member From Class: ClassName=PCLaser Member=C6
+Removed Member From Class: ClassName=PCLaser Member=C8
+Added Room: Name=PCLaser

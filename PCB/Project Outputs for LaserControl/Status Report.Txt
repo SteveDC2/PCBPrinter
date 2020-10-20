@@ -1,0 +1,13 @@
+Output: Gerber Files
+Type  : Gerber
+From  : Variant [[No Variations]] of Project [LaserControl.PrjPCB]
+   Generated File[LaserControl.GTL]
+   Generated File[LaserControl.RUL]
+   Generated File[LaserControl.EXTREP]
+   Generated File[LaserControl.REP]
+
+
+Files Generated   : 4
+Documents Printed : 0
+
+Finished Output Generation At 6:38:36 PM On 8/12/2017

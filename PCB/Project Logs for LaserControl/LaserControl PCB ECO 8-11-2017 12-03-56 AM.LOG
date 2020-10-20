@@ -1,0 +1,12 @@
+Removed Pin From Net: NetName=GND Pin=JP3-2
+Removed Member From Class: ClassName=LaserControl Member=JP1
+Removed Member From Class: ClassName=LaserControl Member=JP3
+Added Component: Designator=P1(HDR1X3)
+Added Pin To Net: NetName=GND Pin=P1-3
+Added Pin To Net: NetName=NetP1_1 Pin=P1-1
+Added Pin To Net: NetName=NetP1_1 Pin=R2-2
+Added Net: Name=NetP1_1
+Added Pin To Net: NetName=NetP1_2 Pin=P1-2
+Added Pin To Net: NetName=NetP1_2 Pin=R1-1
+Added Net: Name=NetP1_2
+Added Member To Class: ClassName=LaserControl Member=Component P1 Header 3

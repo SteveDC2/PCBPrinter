@@ -1,0 +1,503 @@
+#include <stdint.h>
+#include <stdbool.h>
+#include <string.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <ctype.h>
+#include "usblib/usblib.h"
+#include "usblib/usbcdc.h"
+#include "usblib/usb-ids.h"
+#include "usblib/device/usbdevice.h"
+#include "usblib/device/usbdcdc.h"
+#include "driverlib/rom.h"
+#include "driverlib/rom_map.h"
+#include "usb_serial_structs.h"
+#include "inc/hw_uart.h"
+#include "inc/hw_memmap.h"
+#include "driverlib/uart.h"
+#include "driverlib/gpio.h"
+#include "main.h"
+#include "Helpers.h"
+#include "CommandProcessor.h"
+#include "USBSerial.h"
+#include "Stepper.h"
+
+int32_t BMPWidth;
+int32_t BMPHeight;
+uint16_t BMPBPP;
+int8_t BMPFlip;
+uint8_t ImagePolarity;
+uint8_t TestMode = 0;
+
+uint16_t WidthInSteps;
+int16_t ImageIndexDirection = 0;
+uint16_t ImageIndex;
+uint8_t MonoIndex = 0;
+uint8_t UniDirection = 1;
+uint8_t LaserDisable = 0;
+
+float XLocator = 0.4;//Location of PCB start. Should really be at least ?? to allow acceleration. Should also align with alignment bars
+
+uint16_t PrintBufferWidth;
+
+void ImageProc_GetBMPHeader(void)
+{
+	uint32_t BMPFileSize;
+	uint16_t BMPUnused;
+	uint16_t BMPPlanes;
+	uint32_t BMPDataOffset;
+	uint32_t BMPHeaderSize;
+	uint32_t BMPCompression;
+	uint32_t BMPImageSize;
+	uint32_t BMPHResolution;
+	uint32_t BMPVResolution;
+	uint32_t BMPPalette;
+	uint32_t BMPImportant;
+
+	uint32_t SkipCount;
+	uint32_t Count;
+	uint16_t Error = 0;
+
+//	//Get the header data... Allow up to 30 seconds to start
+//	Error = USB_Serial_GetBytes(2, (uint8_t*)&BMPHeaderID, 30000);
+	//Once first data received then timeout can be a lot smaller
+	Error |= USB_Serial_GetBytes(4, (uint8_t*)&BMPFileSize, 300) << 1;
+	Error |= USB_Serial_GetBytes(2, (uint8_t*)&BMPUnused, 300) << 2;
+	Error |= USB_Serial_GetBytes(2, (uint8_t*)&BMPUnused, 300) << 3;
+	Error |= USB_Serial_GetBytes(4, (uint8_t*)&BMPDataOffset, 300) << 4;
+	//Get Windows header info
+	Error |= USB_Serial_GetBytes(4, (uint8_t*)&BMPHeaderSize, 300) << 5;
+	Error |= USB_Serial_GetBytes(4, (uint8_t*)&BMPWidth, 300) << 6;
+	Error |= USB_Serial_GetBytes(4, (uint8_t*)&BMPHeight, 300) << 7;
+	Error |= USB_Serial_GetBytes(2, (uint8_t*)&BMPPlanes, 300) << 8;
+	Error |= USB_Serial_GetBytes(2, (uint8_t*)&BMPBPP, 300) << 9;
+
+	Error |= USB_Serial_GetBytes(4, (uint8_t*)&BMPCompression, 300) << 7;
+	Error |= USB_Serial_GetBytes(4, (uint8_t*)&BMPImageSize, 300) << 7;
+	Error |= USB_Serial_GetBytes(4, (uint8_t*)&BMPHResolution, 300) << 7;
+	Error |= USB_Serial_GetBytes(4, (uint8_t*)&BMPVResolution, 300) << 7;
+	Error |= USB_Serial_GetBytes(4, (uint8_t*)&BMPPalette, 300) << 7;
+	Error |= USB_Serial_GetBytes(4, (uint8_t*)&BMPImportant, 300) << 7;
+
+	if (BMPHeight < 0)
+	{
+		BMPHeight = -BMPHeight;//Top down instead of bottom up, so need to flip left right when imaging
+		BMPFlip = -1;
+	}
+	else
+		BMPFlip = 1;
+
+//	POINT_COLOR = WHITE;
+//	sprintf((char*)MiscBuffer, "Header = %c%c\n", BMPHeaderID[0], BMPHeaderID[1]);
+//	LCD_Print((uint8_t*)MiscBuffer, 0);
+	sprintf((char*)MiscBuffer, " File size = %d\n", BMPFileSize);
+	LCD_Print((uint8_t*)MiscBuffer, 0);
+	sprintf((char*)MiscBuffer, " Image size = %d\n", BMPImageSize);
+	LCD_Print((uint8_t*)MiscBuffer, 0);
+	sprintf((char*)MiscBuffer, " Width = %d\n", BMPWidth);
+	LCD_Print((uint8_t*)MiscBuffer, 0);
+	sprintf((char*)MiscBuffer, " Height = %d\n", BMPHeight);
+	LCD_Print((uint8_t*)MiscBuffer, 0);
+	sprintf((char*)MiscBuffer, " BPP = %d\n", BMPBPP);
+	LCD_Print((uint8_t*)MiscBuffer, 0);
+//	sprintf((char*)MiscBuffer, " HResolution = %d\n", BMPHResolution);
+//	LCD_Print((uint8_t*)MiscBuffer, 0);
+//	sprintf((char*)MiscBuffer, " VResolution = %d\n", BMPVResolution);
+//	LCD_Print((uint8_t*)MiscBuffer, 0);
+
+	SkipCount = BMPDataOffset - 54;
+	for (Count = 1; Count <= SkipCount; Count++)
+		Error |= USB_Serial_GetBytes(1, (uint8_t*)&BMPUnused, 3);
+
+	sprintf((char*)MiscBuffer, " Skip count = %d\n", SkipCount);
+	LCD_Print((uint8_t*)MiscBuffer, 0);
+}
+
+uint8_t GetPixelFromUSB()
+{
+	uint8_t Blue;
+	uint8_t Green;
+	uint8_t Red;
+	uint8_t Alpha;
+	uint8_t Result;
+	static uint8_t Mono = 0;
+
+	if (BMPBPP == 1)
+	{
+		if (MonoIndex == 0)
+		{
+			Error |= USB_Serial_GetBytes(1, (uint8_t*)&Mono, 300);
+		}
+		if ((Mono & (128 >> MonoIndex)) != 0)
+			Result = 0;
+		else
+			Result = 1;
+		MonoIndex = (MonoIndex + 1) & 7;
+	}
+	else if (BMPBPP == 24)
+	{
+		Error |= USB_Serial_GetBytes(1, (uint8_t*)&Blue, 300);
+		Error |= USB_Serial_GetBytes(1, (uint8_t*)&Green, 300);
+		Error |= USB_Serial_GetBytes(1, (uint8_t*)&Red, 300);
+		if (Green < 128)
+			Result = 1;
+		else
+			Result = 0;
+	}
+	else 	if (BMPBPP == 32)
+	{
+		Error |= USB_Serial_GetBytes(1, (uint8_t*)&Blue, 300);
+		Error |= USB_Serial_GetBytes(1, (uint8_t*)&Green, 300);
+		Error |= USB_Serial_GetBytes(1, (uint8_t*)&Red, 300);
+		Error |= USB_Serial_GetBytes(1, (uint8_t*)&Alpha, 300);
+		if (Green < 128)
+			Result = 1;
+		else
+			Result = 0;
+	}
+	//1 = Laser on i.e. no copper
+	return Result ^ ImagePolarity;
+}
+
+void ImageProc_ScanBMPLine(void)
+{
+	uint16_t BytePosition;
+	uint8_t BitPosition;
+	uint8_t Pixel;
+	float PrintXTrack;
+	float PrintXIncrement;
+	float LCDXTrack;
+	float LCDXIncrement;
+	int16_t LCDXPixel;
+	uint16_t PixelsRead;
+	uint8_t FlushCount;
+
+	//Retrieve a line of data and store expanded in the line buffer
+	WidthInSteps = (uint16_t) (BMPWidth * XTicksPerInch / ImageDPI);
+	PrintXTrack = 0.0;
+	PrintXIncrement = (float)BMPWidth / WidthInSteps;
+	LCDXTrack = 0.0;
+	LCDXIncrement = (float)LCD_W / WidthInSteps;
+
+	if (BMPFlip == 1)//If image is top bottom then flip display in X
+		LCDXPixel = 0;
+	else
+		LCDXPixel = (320*2) - 2;//right edge of image - 1 pixel (i.e. - 1 word)
+
+	PixelsRead = 0;
+	MonoIndex = 0;
+
+	for (PrintBufferWidth = 0; PrintBufferWidth < WidthInSteps; PrintBufferWidth++)
+	{
+		if (PrintBufferWidth == 252)
+			PixelsRead = PixelsRead;
+		//Fill the print buffer as necessary
+		PrintXTrack = PrintXTrack - PrintXIncrement;
+		if ((PrintXTrack < 0.0) && (PixelsRead < BMPWidth))
+		{
+			PrintXTrack = PrintXTrack + 1.0;
+			Pixel = GetPixelFromUSB();
+			PixelsRead++;
+		}
+		if (Error != 0)//If error then drop out of the loop
+			PrintBufferWidth = WidthInSteps + 1;
+
+		BitPosition = (PrintBufferWidth & 0x7);
+		BytePosition = (PrintBufferWidth >> 3);
+		if (Pixel != 0)
+			LineBuffer[BytePosition] |= (1 << BitPosition);
+		else
+			LineBuffer[BytePosition] &= ~(1 << BitPosition);
+
+		//Fill the LCD display buffer as necessary
+		LCDXTrack = LCDXTrack - LCDXIncrement;
+		if (LCDXTrack < 0.0)
+		{
+			LCDXTrack = LCDXTrack + 1.0;
+			if (LCDXPixel >= 0)
+			{
+			if (Pixel != 0)
+			{
+				MiscBuffer[LCDXPixel++] = COPPERCOLOR >> 8;
+				MiscBuffer[LCDXPixel++] = COPPERCOLOR & 0xff;
+			}
+			else
+			{
+				MiscBuffer[LCDXPixel++] = BOARDCOLOR >> 8;
+				MiscBuffer[LCDXPixel++] = BOARDCOLOR & 0xff;
+			}
+			if (BMPFlip == -1)//Scan LCD image in opposite direction if source image is top to bottom
+				LCDXPixel -=4;
+			}
+		}
+	}
+	if (Error == 0)
+	{
+		//Now re-align on a 4 byte boundary
+		if (BMPBPP == 24)
+		{
+			FlushCount = ((((PixelsRead - 1) & 3) + 1) & 3);
+		}
+		else if ((BMPBPP == 1))
+		{
+			FlushCount = (3 - (((PixelsRead - 1) / 8) & 3));
+		}
+		else
+			FlushCount = 0;
+
+		while(FlushCount != 0)
+		{
+			Error |= USB_Serial_GetBytes(1, (uint8_t*)&Pixel, 300);
+			FlushCount--;
+		}
+	}
+
+}
+
+void ImageProc_ScanLine(uint32_t XStepsToRun, int8_t XScanDirection)
+{
+	//Clear flags for image line indexing
+	ImageIndexDirection = 0;
+	//Prepare to ramp up speed
+	Stepper_InitStepSegment(XAcceleration, XMinStepClocks, XMaxStepClocks, XNomStepClocks);
+	//Move, accelerating up. No acceleration at the moment
+	Stepper_MoveSteps(XLocator * XTicksPerInch, MOVE_X_MOTOR, XScanDirection);
+	//Scan the bitmap line out
+	//Signal actively sending data by setting the indexing direction to non-zero
+	if (XScanDirection == BMPFlip)
+	{
+		ImageIndexDirection = 1;
+		ImageIndex = 0;
+	}
+	else
+	{
+		ImageIndexDirection = -1;
+		ImageIndex = WidthInSteps - 1;
+	}
+	Stepper_InitStepSegment(0, XMinStepClocks, XMaxStepClocks, XNomStepClocks);
+	Stepper_MoveSteps(PrintBufferWidth, MOVE_X_MOTOR, XScanDirection);
+	//Decelerate now
+	ImageIndexDirection = 0;
+	//Ensure laser is off
+	GPIOPinWrite(LASER_PORT, LASER_BIT, SETLOW);
+	//Calculate parameters
+	Stepper_InitStepSegment(-XAcceleration, XMinStepClocks, XMaxStepClocks, XNomStepClocks);
+	//Move accelerating down. No decelleration at the moment
+	Stepper_MoveSteps(XLocator * XTicksPerInch, MOVE_X_MOTOR, XScanDirection);
+//	//Now wait a little since immediate turnaround seems to cause slipping and x bouncing
+//	WaitFor(20);
+}
+
+void ImageProc_ScanBlankLine(uint32_t XStepsToRun, int8_t XScanDirection)
+{
+	//Ensure laser is off
+	GPIOPinWrite(LASER_PORT, LASER_BIT, SETLOW);
+	//Clear flags for image line indexing
+	ImageIndexDirection = 0;
+	//Prepare to ramp up speed
+	Stepper_InitStepSegment(XAcceleration, XMinStepClocks, XMaxStepClocks, XNomStepClocks);
+	//Move accelerating up. No acceleration at the moment
+	Stepper_MoveSteps(XLocator * XTicksPerInch, MOVE_X_MOTOR, XScanDirection);
+	//Scan the bitmap line out
+	//Signal actively sending data by setting the indexing direction to non-zero
+	ImageIndexDirection = 0;
+	ImageIndex = 0;
+	Stepper_InitStepSegment(0, XMinStepClocks, XMaxStepClocks, XNomStepClocks);
+	Stepper_MoveSteps(PrintBufferWidth, MOVE_X_MOTOR, XScanDirection);
+	//Decelerate now
+	ImageIndexDirection = 0;
+	//Calculate parameters
+	Stepper_InitStepSegment(-XAcceleration, XMinStepClocks, XMaxStepClocks, XNomStepClocks);
+	//Move accelerating down. No decelleration at the moment
+	Stepper_MoveSteps(XLocator * XTicksPerInch, MOVE_X_MOTOR, XScanDirection);
+}
+
+uint8_t GetNextLaserBit(void)
+{
+	uint16_t BytePosition;
+	uint8_t BitPosition;
+	uint8_t ReturnValue;
+
+	if (ImageIndexDirection != 0)
+	{
+		//If not zero the sending the image
+		BitPosition = (ImageIndex & 0x7);
+		BytePosition = (ImageIndex >> 3);
+
+		if (((LineBuffer[BytePosition] & (1 << BitPosition)) != 0) || (LaserDisable))
+			ReturnValue = SETLOW;
+		else
+			ReturnValue = SETHIGH;
+
+		//Move to next bit ready for next time
+		ImageIndex = ImageIndex + ImageIndexDirection;
+	}
+	else
+	{
+		//Otherwise not sending an image, just moving
+		ReturnValue = SETLOW;
+	}
+
+	return ReturnValue;
+}
+
+void ImageProc_ScanBMP(void)
+{
+	float LCDYTrack;
+	uint16_t LCDYRow;
+	float YPrintPos;
+	float YReadTrack;
+	float YSourceResolution;
+	float YLCDResolution;
+	float PrintHeight;
+	float RealStepsToRun;
+	uint8_t XDirection = 1;
+	uint32_t TotalTime;
+	uint32_t ETA;
+	uint16_t Mins, Secs;
+
+	YPrintResolution = 1.0/ImageDPI;
+	//This tracks the actual y positing in inches. Start at one increment in to help align with end of file. Using floats not great but simple
+	YPrintPos = YPrintResolution;
+	RealStepsToRun = 0.0;
+	//This tracks how often we need to read a line of data from the source image
+	YReadTrack = 0.0;
+	//This tracks how often we need to update the LCD display
+	LCDYTrack = 0.0;
+	//Effective LCD DPI wrt source image
+	YLCDResolution = 240.0 /BMPHeight;
+	//And where we are currently displaying
+	LCDYRow = 239;
+	//Source image resolution in inches
+	YSourceResolution = 1.0/ImageDPI;
+
+	PrintHeight = (float)BMPHeight / ImageDPI;
+
+	ResetTime();
+
+	LCD_Clear(WHITE);
+
+	//Scan through the source image
+	while((YPrintPos < PrintHeight) & (Error == 0))
+	{
+		LaserEnable = 0;
+		if ((UniDirection == 0) || ((UniDirection == 1) && (XDirection == 1)))// If uni-direction then only update when scanning positive direction
+		{
+			LaserEnable = 1;
+			//Update actual print position. Not really needed but good to track for the moment
+			YPrintPos = YPrintPos + YPrintResolution;
+			//Track if we need to update the read data
+			YReadTrack = YReadTrack + YPrintResolution;
+			//Track if we need to update the LCD
+			LCDYTrack = LCDYTrack + YLCDResolution;
+
+			//If rolled over then read a new line from the file. Zero checked so initial startup will read a line
+			//If source resolution is higher then print resolution then will loop multiple times
+			while (YReadTrack > 0.0)
+			{
+				ImageProc_ScanBMPLine();
+				YReadTrack = YReadTrack - YSourceResolution;
+			}
+			//Track if we need to update the LCD. Using same method as for reading but should never loop more than once
+			while(LCDYTrack > 0.0)
+			{
+				LCDYTrack = LCDYTrack - 1;
+				LCD_SetDataLine(LCDYRow, MiscBuffer);
+				LCDYRow --;
+			}
+		}
+		//Now everyone is update actually send the scan line
+		if (TestMode == 0)
+			ImageProc_ScanLine(PrintBufferWidth, XDirection);
+
+		XDirection = 1 - XDirection;
+
+		if ((UniDirection == 0) || ((UniDirection == 1) && (XDirection == 1)))// If uni-direction then only update when scanning positive direction
+		{
+			//Now advance in Y
+			RealStepsToRun = RealStepsToRun + (float)YTicksPerInch * YPrintResolution;
+			StepsToRun = (int)RealStepsToRun;
+			//Track difference of fractional steps required
+			RealStepsToRun = RealStepsToRun - StepsToRun;
+			//Step the Y direction now
+			Stepper_InitStepSegment(0, HomeYStepPeriodSlow, HomeYStepPeriodSlow, HomeYStepPeriodSlow);
+			Stepper_MoveSteps(StepsToRun, MOVE_Y_MOTOR, MOVE_NEGATIVE);
+			TotalTime = (TimeTick * PrintHeight)/YPrintPos;
+
+			ETA = TotalTime - TimeTick;
+
+			Mins = TotalTime / 60000;
+			Secs = (TotalTime - (60000 * Mins)) / 1000;
+			sprintf((char*)MiscBuffer, "Est = %3d:%02d  ", Mins, Secs);
+			LCD_FontString(0,0,MiscBuffer,0);
+			Mins = ETA / 60000;
+			Secs = (ETA - (60000 * Mins)) / 1000;
+			sprintf((char*)MiscBuffer, "ETA = %3d:%02d  ", Mins, Secs);
+			LCD_FontString(0,20,MiscBuffer,0);
+		}
+	}
+	//Move carriage out of the way now
+	if (TestMode == 0)
+	{
+		StepsToRun = (float)YTicksPerInch * (7 - PrintHeight);
+		Stepper_InitStepSegment(0, HomeYStepPeriodFast, HomeYStepPeriodFast, HomeYStepPeriodFast);
+		Stepper_MoveSteps(StepsToRun, MOVE_Y_MOTOR, MOVE_NEGATIVE);
+	}
+	//Make sure nothing left in the USB buffer
+	USB_SERIAL_FlushRX();
+}
+
+
+void ImageProc_PrintBMP(void)
+{
+	uint32_t Mins, Secs;
+
+	LCD_Clear(WHITE);
+	POINT_COLOR = DARKGREEN;
+
+	ImageProc_GetBMPHeader();
+
+	if ((BMPBPP != 24) && (BMPBPP != 32) && (BMPBPP != 1))
+	{
+		LCD_Clear(RED);
+		POINT_COLOR = WHITE;
+		LCD_Print((uint8_t*)" Error : Bitmap not mono, 24bpp or 32bpp\n", 0);
+		USB_SERIAL_FlushRX();
+	}
+	else
+	{
+		LCD_Print((uint8_t*)" Reading image\n", 0);
+		//Should be a good image so move home
+		Stepper_Home(HomeXStepPeriodFast, HomeXStepPeriodSlow, CHECK_X_LIMIT, MOVE_X_MOTOR, XTicksPermm);
+
+		//Y home
+		Stepper_Home(HomeYStepPeriodFast, HomeYStepPeriodSlow, CHECK_Y_LIMIT, MOVE_Y_MOTOR, YTicksPermm);
+
+		//Print the image
+		ImageProc_ScanBMP();
+		//Ensure the laser diode off
+		GPIOPinWrite(LASER_PORT, LASER_BIT, 0);
+		ImageIndexDirection = 0;
+	}
+
+	if (Error != 0)
+	{
+		LCD_Clear(RED);
+		POINT_COLOR = WHITE;
+		LCD_Print((uint8_t*) "Error printing!!\n", 0);
+		LCD_Print((uint8_t*) "File copy cancelled\n", 0);
+	}
+	else
+	{
+		LCD_Clear(GREEN);
+		POINT_COLOR = WHITE;
+		Mins = TimeTick / 60000;
+		Secs = (TimeTick - (60000 * Mins)) / 1000;
+		sprintf((char*)MiscBuffer, "Actual = %3d:%02d\n", Mins, Secs);
+		LCD_Print((uint8_t*) MiscBuffer, 0);
+	}
+
+	//Done
+	FoundBM = 0;
+	USBSerialMode = USBTEXTMODE;//Switch back to text mode for command processing
+}

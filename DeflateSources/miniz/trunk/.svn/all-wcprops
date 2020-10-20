@@ -1,0 +1,155 @@
+K 25
+svn:wc:ra_dav:version-url
+V 22
+/svn/!svn/ver/63/trunk
+END
+examples.sln
+K 25
+svn:wc:ra_dav:version-url
+V 35
+/svn/!svn/ver/45/trunk/examples.sln
+END
+examples.workspace
+K 25
+svn:wc:ra_dav:version-url
+V 41
+/svn/!svn/ver/45/trunk/examples.workspace
+END
+CMakeLists.txt
+K 25
+svn:wc:ra_dav:version-url
+V 37
+/svn/!svn/ver/57/trunk/CMakeLists.txt
+END
+example1.vcproj
+K 25
+svn:wc:ra_dav:version-url
+V 38
+/svn/!svn/ver/43/trunk/example1.vcproj
+END
+miniz_tester.vcproj
+K 25
+svn:wc:ra_dav:version-url
+V 42
+/svn/!svn/ver/45/trunk/miniz_tester.vcproj
+END
+example1.cbp
+K 25
+svn:wc:ra_dav:version-url
+V 35
+/svn/!svn/ver/45/trunk/example1.cbp
+END
+example2.vcproj
+K 25
+svn:wc:ra_dav:version-url
+V 38
+/svn/!svn/ver/43/trunk/example2.vcproj
+END
+example2.cbp
+K 25
+svn:wc:ra_dav:version-url
+V 35
+/svn/!svn/ver/45/trunk/example2.cbp
+END
+example3.vcproj
+K 25
+svn:wc:ra_dav:version-url
+V 38
+/svn/!svn/ver/43/trunk/example3.vcproj
+END
+example4.vcproj
+K 25
+svn:wc:ra_dav:version-url
+V 38
+/svn/!svn/ver/43/trunk/example4.vcproj
+END
+example3.cbp
+K 25
+svn:wc:ra_dav:version-url
+V 35
+/svn/!svn/ver/45/trunk/example3.cbp
+END
+example5.vcproj
+K 25
+svn:wc:ra_dav:version-url
+V 38
+/svn/!svn/ver/43/trunk/example5.vcproj
+END
+example4.cbp
+K 25
+svn:wc:ra_dav:version-url
+V 35
+/svn/!svn/ver/45/trunk/example4.cbp
+END
+example5.cbp
+K 25
+svn:wc:ra_dav:version-url
+V 35
+/svn/!svn/ver/45/trunk/example5.cbp
+END
+example1.c
+K 25
+svn:wc:ra_dav:version-url
+V 33
+/svn/!svn/ver/45/trunk/example1.c
+END
+miniz_tester.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 39
+/svn/!svn/ver/57/trunk/miniz_tester.cpp
+END
+tinfl.c
+K 25
+svn:wc:ra_dav:version-url
+V 30
+/svn/!svn/ver/45/trunk/tinfl.c
+END
+example2.c
+K 25
+svn:wc:ra_dav:version-url
+V 33
+/svn/!svn/ver/57/trunk/example2.c
+END
+example3.c
+K 25
+svn:wc:ra_dav:version-url
+V 33
+/svn/!svn/ver/45/trunk/example3.c
+END
+example4.c
+K 25
+svn:wc:ra_dav:version-url
+V 33
+/svn/!svn/ver/57/trunk/example4.c
+END
+timer.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 32
+/svn/!svn/ver/45/trunk/timer.cpp
+END
+example5.c
+K 25
+svn:wc:ra_dav:version-url
+V 33
+/svn/!svn/ver/45/trunk/example5.c
+END
+example6.c
+K 25
+svn:wc:ra_dav:version-url
+V 33
+/svn/!svn/ver/57/trunk/example6.c
+END
+timer.h
+K 25
+svn:wc:ra_dav:version-url
+V 30
+/svn/!svn/ver/45/trunk/timer.h
+END
+miniz.c
+K 25
+svn:wc:ra_dav:version-url
+V 30
+/svn/!svn/ver/63/trunk/miniz.c
+END

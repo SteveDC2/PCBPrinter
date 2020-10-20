@@ -1,0 +1,38 @@
+Change Component DesignItemId : Designator=R13 Old DesignItemId=CRCW060310K0JNEA New DesignItemId=CRCW06032K20JNEA
+Change Component DesignItemId : Designator=R16 Old DesignItemId=CRCW060310K0JNEA New DesignItemId=CRCW06032K20JNEA
+Change Component DesignItemId : Designator=R12 Old DesignItemId=CRCW060310K0JNEA New DesignItemId=CRCW060362R0JNEA
+Change Component Comment : Designator=R13 Old Comment= New Comment=CRCW06032K20JNEA
+Change Component Comment : Designator=R16 Old Comment= New Comment=CRCW06032K20JNEA
+Change Component Comment : Designator=R12 Old Comment= New Comment=CRCW060362R0JNEA
+Change Component Description : Designator=R13 Old Description=RES, 2k2, 1%, 0.1 W, 0603 New Description=RES, 2.2 k, 5%, 0.1 W, 0603
+Change Component Description : Designator=R16 Old Description=RES, 2k2, 1%, 0.1 W, 0603 New Description=RES, 2.2 k, 5%, 0.1 W, 0603
+Change Component Description : Designator=R12 Old Description=RES, 60R, 1%, 0.1 W, 0603 New Description=RES, 62, 5%, 0.1 W, 0603
+Added Member To Class: ClassName=PCLaser Member=Component C1 0.1uF
+Added Member To Class: ClassName=PCLaser Member=Component C2 0.1uF
+Added Member To Class: ClassName=PCLaser Member=Component C3 0.1uF
+Added Member To Class: ClassName=PCLaser Member=Component C4 0.1uF
+Added Member To Class: ClassName=PCLaser Member=Component C5 10uF ceramic
+Added Member To Class: ClassName=PCLaser Member=Component C7 0.1uF
+Added Member To Class: ClassName=PCLaser Member=Component C9 0.1uF
+Added Member To Class: ClassName=PCLaser Member=Component C11 0.1uF
+Added Member To Class: ClassName=PCLaser Member=Component C12 10uF ceramic
+Added Member To Class: ClassName=PCLaser Member=Component J1 45 pin 0.5mm
+Added Member To Class: ClassName=PCLaser Member=Component J2 046288020000846+
+Added Member To Class: ClassName=PCLaser Member=Component R1 CRCW060310K0JNEA
+Added Member To Class: ClassName=PCLaser Member=Component R2 CRCW060310K0JNEA
+Added Member To Class: ClassName=PCLaser Member=Component R3 CRCW060310K0JNEA
+Added Member To Class: ClassName=PCLaser Member=Component R4 CRCW060310K0JNEA
+Added Member To Class: ClassName=PCLaser Member=Component R5 CRCW060310K0JNEA
+Added Member To Class: ClassName=PCLaser Member=Component R6 CRCW060310K0JNEA
+Added Member To Class: ClassName=PCLaser Member=Component R7 CRCW060310K0JNEA
+Added Member To Class: ClassName=PCLaser Member=Component R8 CRCW060310K0JNEA
+Added Member To Class: ClassName=PCLaser Member=Component R9 CRCW060310K0JNEA
+Added Member To Class: ClassName=PCLaser Member=Component R10 CRCW060310K0JNEA
+Added Member To Class: ClassName=PCLaser Member=Component R11 
+Added Member To Class: ClassName=PCLaser Member=Component R12 CRCW060362R0JNEA
+Added Member To Class: ClassName=PCLaser Member=Component R13 CRCW06032K20JNEA
+Added Member To Class: ClassName=PCLaser Member=Component R16 CRCW06032K20JNEA
+Added Member To Class: ClassName=PCLaser Member=Component U1 LM324KPW
+Added Member To Class: ClassName=PCLaser Member=Component U2 LM324KPW
+Added Member To Class: ClassName=PCLaser Member=Component U3 TC4425AVOA
+Added Room: Name=PCLaser

@@ -1,0 +1,51 @@
+Added Component: Designator=C1(0603c)
+Added Component: Designator=C2(0603c)
+Added Component: Designator=C3(0603c)
+Added Component: Designator=C4(0603c)
+Added Pin To Net: NetName=GND Pin=C1-1
+Added Pin To Net: NetName=GND Pin=C2-1
+Added Pin To Net: NetName=GND Pin=C3-1
+Added Pin To Net: NetName=GND Pin=C4-1
+Added Pin To Net: NetName=GND Pin=J1-34
+Added Pin To Net: NetName=GND Pin=J1-37
+Added Pin To Net: NetName=GND Pin=U1-11
+Added Net: Name=GND
+Added Pin To Net: NetName=NetJ1_32 Pin=J1-32
+Added Pin To Net: NetName=NetJ1_32 Pin=U1-10
+Added Net: Name=NetJ1_32
+Added Pin To Net: NetName=NetJ1_33 Pin=J1-33
+Added Pin To Net: NetName=NetJ1_33 Pin=U1-12
+Added Net: Name=NetJ1_33
+Added Pin To Net: NetName=NetJ1_35 Pin=J1-35
+Added Pin To Net: NetName=NetJ1_35 Pin=U1-3
+Added Net: Name=NetJ1_35
+Added Pin To Net: NetName=NetJ1_36 Pin=J1-36
+Added Pin To Net: NetName=NetJ1_36 Pin=U1-5
+Added Net: Name=NetJ1_36
+Added Pin To Net: NetName=NetR1_1 Pin=U1-9
+Added Net: Name=NetR1_1
+Added Pin To Net: NetName=NetR1_2 Pin=U1-8
+Added Net: Name=NetR1_2
+Added Pin To Net: NetName=NetR3_1 Pin=U1-13
+Added Net: Name=NetR3_1
+Added Pin To Net: NetName=NetR3_2 Pin=U1-14
+Added Net: Name=NetR3_2
+Added Pin To Net: NetName=NetR5_1 Pin=U1-2
+Added Net: Name=NetR5_1
+Added Pin To Net: NetName=NetR5_2 Pin=U1-1
+Added Net: Name=NetR5_2
+Added Pin To Net: NetName=NetR7_1 Pin=U1-6
+Added Net: Name=NetR7_1
+Added Pin To Net: NetName=NetR7_2 Pin=U1-7
+Added Net: Name=NetR7_2
+Added Pin To Net: NetName=V5V Pin=C1-2
+Added Pin To Net: NetName=V5V Pin=C2-2
+Added Pin To Net: NetName=V5V Pin=C3-2
+Added Pin To Net: NetName=V5V Pin=C4-2
+Added Pin To Net: NetName=V5V Pin=U1-4
+Added Net: Name=V5V
+Added Member To Class: ClassName=PCLaser Member=Component C1 0.1uF
+Added Member To Class: ClassName=PCLaser Member=Component C2 0.1uF
+Added Member To Class: ClassName=PCLaser Member=Component C3 0.1uF
+Added Member To Class: ClassName=PCLaser Member=Component C4 0.1uF
+Added Room: Name=PCLaser

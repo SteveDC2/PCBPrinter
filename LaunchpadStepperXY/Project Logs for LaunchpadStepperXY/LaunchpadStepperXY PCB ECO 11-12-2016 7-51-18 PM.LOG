@@ -1,0 +1,6 @@
+Removed Pin From Net: NetName=PE2 Pin=J2-18
+Removed Pin From Net: NetName=LCD_MISO Pin=J3-18
+Change Component Footprint: Designator=J2 Old Footprint= New Footprint=IDC20
+Change Component Footprint: Designator=J3 Old Footprint= New Footprint=IDC20
+Added Pin To Net: NetName=PE3 Pin=J2-18
+Added Pin To Net: NetName=LCD_CD Pin=J3-18

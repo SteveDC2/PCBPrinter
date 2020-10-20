@@ -1,0 +1,8 @@
+Added Component: Designator=F1(1210)
+Added Component: Designator=R9(0603)
+Added Pin To Net: NetName=EXTERNAL POWER Pin=F1-1
+Added Pin To Net: NetName=NetF1_2 Pin=F1-2
+Added Pin To Net: NetName=GND Pin=R9-1
+Added Pin To Net: NetName=NetD2_1 Pin=R9-2
+Added Member To Class: ClassName=PCLaser Member=Component F1 C1F 500
+Added Member To Class: ClassName=PCLaser Member=Component R9 RC0603FR-071K1L

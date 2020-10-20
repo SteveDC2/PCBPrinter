@@ -1,0 +1,17 @@
+Added Component: Designator=JP2(SIP2)
+Added Component: Designator=JP3(SIP2)
+Added Component: Designator=R1(0603)
+Added Component: Designator=R2(0603)
+Added Pin To Net: NetName=GND Pin=JP2-1
+Added Pin To Net: NetName=PB1 Pin=JP2-2
+Added Pin To Net: NetName=GND Pin=JP3-1
+Added Pin To Net: NetName=PB0 Pin=JP3-2
+Added Pin To Net: NetName=BL_LED Pin=R1-1
+Added Pin To Net: NetName=PB0 Pin=R1-2
+Added Pin To Net: NetName=BL_LED Pin=R2-1
+Added Pin To Net: NetName=PB1 Pin=R2-2
+Added Member To Class: ClassName=LaunchpadStepperXY Member=Component JP2 CON2
+Added Member To Class: ClassName=LaunchpadStepperXY Member=Component JP3 CON2
+Added Member To Class: ClassName=LaunchpadStepperXY Member=Component R1 10K
+Added Member To Class: ClassName=LaunchpadStepperXY Member=Component R2 10K
+Added Room: Name=LaunchpadStepperXY

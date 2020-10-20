@@ -1,0 +1,5 @@
+Removed Pin From Net: NetName=LASERCON Pin=J2-8
+Removed Pin From Net: NetName=LASERCON Pin=R11-2
+Added Pin To Net: NetName=LASERCONPWM Pin=J2-8
+Added Pin To Net: NetName=LASERCONPWM Pin=R11-2
+Added Net: Name=LASERCONPWM

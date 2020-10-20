@@ -1,0 +1,28 @@
+#Set source image resolution
+dpi 4000
+#Source image polarity
+pol 0
+#Test mode
+test 0
+#Uni-directional printing
+uni 1
+#Enable/disable the laser
+ldis 0
+#Back lash correction
+blc 0
+#Mirror the image
+MIR 0
+#Flip the image to far side of print bed
+FLIP 0
+#Image flip offset, basicaly distance to opposite x rail guide
+IFO 3.0
+#Y print resolution, i.e. y stepping distance
+YPR 4000
+#Test back lash correction
+tblc 0
+#Move print head when finished
+MWF 0
+#Move print head home before starting print
+HBP 0
+#Print x offset
+XO 0.0

@@ -1,0 +1,117 @@
+Added Pin To Net: NetName=NetCon1_1 Pin=Con1-1
+Added Pin To Net: NetName=NetCon1_2 Pin=Con1-2
+Added Pin To Net: NetName=NetCon1_3 Pin=Con1-3
+Added Pin To Net: NetName=NetCon1_4 Pin=Con1-4
+Added Pin To Net: NetName=NetCon2_1 Pin=Con2-1
+Added Pin To Net: NetName=NetCon2_2 Pin=Con2-2
+Added Pin To Net: NetName=NetCon2_3 Pin=Con2-3
+Added Pin To Net: NetName=NetCon2_4 Pin=Con2-4
+Added Pin To Net: NetName=BL_LED Pin=J1-1
+Added Pin To Net: NetName=GND Pin=J1-2
+Added Pin To Net: NetName=LCD_CD Pin=J1-3
+Added Pin To Net: NetName=R\E\S\E\T\ Pin=J1-4
+Added Pin To Net: NetName=D/C Pin=J1-5
+Added Pin To Net: NetName=LCD_MOSI Pin=J1-6
+Added Pin To Net: NetName=LCD_SCK Pin=J1-7
+Added Pin To Net: NetName=BL_LED Pin=J1-8
+Added Pin To Net: NetName=LCD_MISO Pin=J1-9
+Added Pin To Net: NetName=LCD_SCK Pin=J1-10
+Added Pin To Net: NetName=PA6 Pin=J1-11
+Added Pin To Net: NetName=LCD_MOSI Pin=J1-12
+Added Pin To Net: NetName=LCD_MISO Pin=J1-13
+Added Pin To Net: NetName=PF0 Pin=J1-14
+Added Pin To Net: NetName=BL_LED Pin=J2-1
+Added Pin To Net: NetName=V5V Pin=J2-2
+Added Pin To Net: NetName=PB5 Pin=J2-3
+Added Pin To Net: NetName=GND Pin=J2-4
+Added Pin To Net: NetName=PB0 Pin=J2-5
+Added Pin To Net: NetName=PD0 Pin=J2-6
+Added Pin To Net: NetName=PB1 Pin=J2-7
+Added Pin To Net: NetName=PD1 Pin=J2-8
+Added Pin To Net: NetName=PE4 Pin=J2-9
+Added Pin To Net: NetName=PD2 Pin=J2-10
+Added Pin To Net: NetName=PE5 Pin=J2-11
+Added Pin To Net: NetName=PD3 Pin=J2-12
+Added Pin To Net: NetName=PB4 Pin=J2-13
+Added Pin To Net: NetName=PE1 Pin=J2-14
+Added Pin To Net: NetName=LCD_MOSI Pin=J2-15
+Added Pin To Net: NetName=PE2 Pin=J2-16
+Added Pin To Net: NetName=PA6 Pin=J2-17
+Added Pin To Net: NetName=PE3 Pin=J2-18
+Added Pin To Net: NetName=D/C Pin=J2-19
+Added Pin To Net: NetName=PF1 Pin=J2-20
+Added Pin To Net: NetName=PF2 Pin=J3-1
+Added Pin To Net: NetName=GND Pin=J3-2
+Added Pin To Net: NetName=PF3 Pin=J3-3
+Added Pin To Net: NetName=PB2 Pin=J3-4
+Added Pin To Net: NetName=PB3 Pin=J3-5
+Added Pin To Net: NetName=PE0 Pin=J3-6
+Added Pin To Net: NetName=PC4 Pin=J3-7
+Added Pin To Net: NetName=PF0 Pin=J3-8
+Added Pin To Net: NetName=PC5 Pin=J3-9
+Added Pin To Net: NetName=R\E\S\E\T\ Pin=J3-10
+Added Pin To Net: NetName=PC6 Pin=J3-11
+Added Pin To Net: NetName=PB7 Pin=J3-12
+Added Pin To Net: NetName=PC7 Pin=J3-13
+Added Pin To Net: NetName=PB6 Pin=J3-14
+Added Pin To Net: NetName=PD6 Pin=J3-15
+Added Pin To Net: NetName=LCD_MISO Pin=J3-16
+Added Pin To Net: NetName=PD7 Pin=J3-17
+Added Pin To Net: NetName=LCD_CD Pin=J3-18
+Added Pin To Net: NetName=PF4 Pin=J3-19
+Added Pin To Net: NetName=LCD_SCK Pin=J3-20
+Added Pin To Net: NetName=GND Pin=JP1-1
+Added Pin To Net: NetName=NetJP1_2 Pin=JP1-2
+Added Pin To Net: NetName=GND Pin=JP2-1
+Added Pin To Net: NetName=PC7 Pin=JP2-2
+Added Pin To Net: NetName=GND Pin=JP3-1
+Added Pin To Net: NetName=PD6 Pin=JP3-2
+Added Pin To Net: NetName=BL_LED Pin=R1-1
+Added Pin To Net: NetName=PD6 Pin=R1-2
+Added Pin To Net: NetName=BL_LED Pin=R2-1
+Added Pin To Net: NetName=PC7 Pin=R2-2
+Added Pin To Net: NetName=PF4 Pin=ST1-1
+Added Pin To Net: NetName=BL_LED Pin=ST1-2
+Added Pin To Net: NetName=BL_LED Pin=ST1-3
+Added Pin To Net: NetName=BL_LED Pin=ST1-4
+Added Pin To Net: NetName=PD2 Pin=ST1-5
+Added Pin To Net: NetName=BL_LED Pin=ST1-6
+Added Pin To Net: NetName=PD1 Pin=ST1-7
+Added Pin To Net: NetName=PD0 Pin=ST1-8
+Added Pin To Net: NetName=GND Pin=ST1-9
+Added Pin To Net: NetName=BL_LED Pin=ST1-10
+Added Pin To Net: NetName=NetCon1_4 Pin=ST1-11
+Added Pin To Net: NetName=NetCon1_3 Pin=ST1-12
+Added Pin To Net: NetName=NetCon1_2 Pin=ST1-13
+Added Pin To Net: NetName=NetCon1_1 Pin=ST1-14
+Added Pin To Net: NetName=GND Pin=ST1-15
+Added Pin To Net: NetName=NetJP1_2 Pin=ST1-16
+Added Pin To Net: NetName=PF4 Pin=ST2-1
+Added Pin To Net: NetName=BL_LED Pin=ST2-2
+Added Pin To Net: NetName=BL_LED Pin=ST2-3
+Added Pin To Net: NetName=BL_LED Pin=ST2-4
+Added Pin To Net: NetName=PD2 Pin=ST2-5
+Added Pin To Net: NetName=BL_LED Pin=ST2-6
+Added Pin To Net: NetName=PB4 Pin=ST2-7
+Added Pin To Net: NetName=PD7 Pin=ST2-8
+Added Pin To Net: NetName=GND Pin=ST2-9
+Added Pin To Net: NetName=BL_LED Pin=ST2-10
+Added Pin To Net: NetName=NetCon2_4 Pin=ST2-11
+Added Pin To Net: NetName=NetCon2_3 Pin=ST2-12
+Added Pin To Net: NetName=NetCon2_2 Pin=ST2-13
+Added Pin To Net: NetName=NetCon2_1 Pin=ST2-14
+Added Pin To Net: NetName=GND Pin=ST2-15
+Added Pin To Net: NetName=NetJP1_2 Pin=ST2-16
+Added Member To Class: ClassName=LaunchpadStepperXY Member=Component Con1 CON4
+Added Member To Class: ClassName=LaunchpadStepperXY Member=Component Con2 CON4
+Added Member To Class: ClassName=LaunchpadStepperXY Member=Component J1 14 pin
+Added Member To Class: ClassName=LaunchpadStepperXY Member=Component J2 Header 10x2
+Added Member To Class: ClassName=LaunchpadStepperXY Member=Component J3 Header 10x2
+Added Member To Class: ClassName=LaunchpadStepperXY Member=Component JP1 CON2
+Added Member To Class: ClassName=LaunchpadStepperXY Member=Component JP2 CON2
+Added Member To Class: ClassName=LaunchpadStepperXY Member=Component JP3 CON2
+Added Member To Class: ClassName=LaunchpadStepperXY Member=Component R1 10K
+Added Member To Class: ClassName=LaunchpadStepperXY Member=Component R2 10K
+Added Member To Class: ClassName=LaunchpadStepperXY Member=Component ST1 StepStick
+Added Member To Class: ClassName=LaunchpadStepperXY Member=Component ST2 StepStick
+Added Room: Name=LaunchpadStepperXY
